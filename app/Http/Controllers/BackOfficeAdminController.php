@@ -17,12 +17,14 @@ class BackOfficeAdminController extends Controller
     /**
      * Display the admin view.
      */
-    public function control(Request $request): Response
+    public function create(Request $request): Response | RedirectResponse 
     {
         $user = $request->user();
         $admin = $user->admin;
-        
-        if (!$admin) return Inertia::render('/');
-        return  Inertia::render('BackOffice');;
+
+        $users = User::all();
+
+        if ($admin == 1) return Inertia::render('BackOffice', ['users' => $users]);
+        return redirect(route('dashboard'));
     }
 }
