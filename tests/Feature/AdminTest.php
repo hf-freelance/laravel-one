@@ -18,13 +18,13 @@ class AdminTest extends TestCase
             ->actingAs($user)
             ->get('backoffice');
 
-        $response->assertStatus(302);
+        $response->assertFound();
+        $response->assertRedirect('dashboard');
     }
 
     public function test_backoffice(): void
     {
         $admin = User::factory()->create(['admin' => 1]);
-
 
         $response = $this
             ->actingAs($admin)
